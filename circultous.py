@@ -16,7 +16,7 @@ Version=namedtuple('Version','major minor')
 class Circle(object):
     """An advanced circle analytic toolkit"""
  #   version = '0.1.1'
-    version = Version(0,5)
+    version = Version(0,4)
     def __init__(self,radius):
         """Not many ppl read docs"""
         self.radius = radius
