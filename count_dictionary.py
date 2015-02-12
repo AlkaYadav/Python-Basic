@@ -29,7 +29,32 @@ def create_new_dict_using_first_letter():
         (d.setdefault(color[0],set())).add(color)
         
     print 'Dictionary',d    
+
+def count_default_dict():
+    from collections import defaultdict
+    '''defaultdict can be used to create trees using
+       defaultdict(dict),every element will itself be a dictionary
+    '''   
+    #Specify set as default value
+    #defaultdict doesn't give key error,it replaces with default value
+
+    d=defaultdict(set)
+    colors='red green blue yellow purple red blue yellow red bluo'.split()
+    for color in colors:
+        d[color[0]].add(color)
+    print 'Dictionary created:',d
+    print 'Another example of defaultdict'
+    d=defaultdict(int)
+    for color in colors:
+          d[color]+=1
+    print 'Dictionary created:',sorted(d.items())
+    print 'Another example of defaultdict'
+    d=defaultdict(lambda:-10)
+    for color in colors:
+        d[color]+=1
+    print 'Dictionary created:',sorted(d.items())
     
+      
 if __name__=='__main__':
      print 'Simple counting'
      count()
@@ -37,5 +62,6 @@ if __name__=='__main__':
      count_using_Counter()
      print 'Creating something different'
      create_new_dict_using_first_letter()
+     count_default_dict()
 
     
