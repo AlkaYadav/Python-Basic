@@ -17,11 +17,25 @@ def count_using_Counter():
     print 'After counting using Counter',Counter(colors)
     print 'Printing most commons:',Counter(colors).most_common(2)
 
+def create_new_dict_using_first_letter():
+    '''
+    Creates a dictionary with first letter of color as key and value
+    is a set of colors starting with that first letter
+    '''
+    d={}
+    colors='red green blue yellow purple red blue yellow red bluo'.split()
+    print'Colors',colors
+    for color in colors:
+        (d.setdefault(color[0],set())).add(color)
+        
+    print 'Dictionary',d    
+    
 if __name__=='__main__':
      print 'Simple counting'
      count()
      print 'Counting using Counter'
      count_using_Counter()
-
+     print 'Creating something different'
+     create_new_dict_using_first_letter()
 
     
