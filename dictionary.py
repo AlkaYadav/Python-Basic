@@ -60,7 +60,7 @@ def update_dictionary(d):
     print 'New Dictionary(Not updated!!):',sorted(d.items())
 
     '''
-    3.use update method
+    4.use update method
     '''
     print'Updatind Dictionary with update method:'
     e={'a':1,'c':4,'y':7}
@@ -69,10 +69,31 @@ def update_dictionary(d):
     d.update(e)
     print 'New Dictionary after calling update:',sorted(d.items())
 
+def del_dictionary(d):
+    '''
+    1.Using del method
+    '''
+    print 'Delete using del method for key "a"'
+    print 'Original Dictionary:',sorted(d.items())
+    del d['a']
+    print 'Dictionary after deletion:',sorted(d.items())
+
+    '''
+    2.Using pop to avoid KeyError
+    '''
+    print 'Delete using pop method for key "h"'
+    print 'Original Dictionary:',sorted(d.items())
+    print'Delete:',d.pop('h','Value not present')
+    print 'Dictionary after deletion:',sorted(d.items())
+
 
 if __name__=='__main__':
     print 'Create new dictionary:'
     d=create_dictionary()
+    print '================================='
     print 'Calling update method'
     print
     update_dictionary(d)
+    print '=================================='
+    print 'Calling delete'
+    del_dictionary(d)
