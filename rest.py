@@ -12,13 +12,37 @@ def welcome(request):
 @itty.get('/time')
 def show_time(request):
     return time.ctime()
-
+filelist_html_template="""
+<html>
+    <head>
+        <title> File in notes folder</title>
+    </head>
+    <body>
+        <h1>List of files in 'notes' folder</h1>
+        <ul>
+            %s
+        </ul>
+        </body>
+        </html>
+     
+"""
+listitem_html_template='<li>%s</li>'
 @itty.get('/show')
 def show_files(request):
     files=os.listdir('/Users/alkyadav/Python/pyclass/notes')
-    result=json.dumps(files)
-    itty.Response(result,content_type='application/json')
-    return result
+    query=request.GET
+    fmt=query.get('format','json')
+    if fmt == 'json':
+        result=json.dumps(files)
+        response=itty.Response(result,content_type='application/json')
+    elif fmt == 'html':
+        listitems=[]
+        for filename in files:
+            listitems.append(listitem_html_template%filename)
+        response=filelist_html_template%''.join(listitems)
+    else:
+        response='Invalid ? format use json or html'%fmt
+    return response    
 
 @itty.get('/upper')
 def show_upper(request):
