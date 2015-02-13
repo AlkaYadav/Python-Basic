@@ -3,7 +3,7 @@ decorators.py
 Create decorators to create a registry to add functions and
 add_docstring to functions
 '''
-
+import functools,random
 registry={}
 def register(func):
     'to register functions'
@@ -27,7 +27,26 @@ def add_logging(func):
 				return ans
 	return wrapper
 	
-				
+#This func uses functools.wraps which manages to keep name of
+#function,argument list correct to function calling
+
+def memoize(maxsize=10):
+    def decorator(func):
+        'result caching wrapper'
+        cache={}
+        @functools.wraps(func)
+        def wrapper(*args):  #**kwargs not available for dict
+            if args in cache:
+                return cache[args]
+            result=func(*args)
+            if len(cache)>=maxsize:
+                del cache[random.choice(cache.keys())]
+            cache[args]=result
+            return result
+        return wrapper
+    return decorator
+        
+        
 #######List of functions to register and add_doc####
 @register    #like square=register(square)
 @add_docstring
@@ -35,6 +54,7 @@ def add_logging(func):
 def square(x):
     return x ** x
 
+@memoize(maxsize=3)
 @register
 @add_docstring
 def calculate(x):
@@ -62,6 +82,9 @@ if __name__ == '__main__':
     print 'calculate of 2 is',calculate(2)
     print 'Registry',registry
     print 'Square doc is',square.__doc__
+    print calculate(3)
+    print calculate(4)
+    print calculate(5)
     print '================================'
     print 'Calling collatz'
     print 'collatz of 8 is',collatz(8)
